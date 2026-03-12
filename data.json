@@ -4,7 +4,7 @@
     "description": "A quick reference of languages spoken around the world."
   },
   "languages": [
-    { "name": "Mandarin Chinese", "family": "Sino-Tibetan",  "native_speakers_M": 920, "official_in": ["China", "Taiwan", "Singapore"] },
+    { "name": "Mandarin Chinese", "family": "Sino-Tibetan",  "native_speakers_M": 1000, "official_in": ["China", "Taiwan", "Singapore"] },
     { "name": "Spanish",          "family": "Indo-European", "native_speakers_M": 475, "official_in": ["Spain", "Mexico", "Argentina", "20 others"] },
     { "name": "English",          "family": "Indo-European", "native_speakers_M": 373, "official_in": ["USA", "UK", "Australia", "67 others"] },
     { "name": "Arabic",           "family": "Afro-Asiatic",  "native_speakers_M": 362, "official_in": ["Egypt", "Saudi Arabia", "22 others"] },
