@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main          # triggers on every merge to main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # 1. Check out the repo code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Tell GitHub Actions we want to deploy a static site
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 3. Bundle the files we want to publish
+      - name: Upload site files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'          # uploads everything in the repo root
+
+      # 4. Actually deploy to GitHub Pages
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
