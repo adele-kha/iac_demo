@@ -1,38 +1,32 @@
-name: Deploy to GitHub Pages
+name: Validate JSON on PR
 
 on:
-  push:
-    branches:
-      - main          # triggers on every merge to main
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+  pull_request:
+    paths:
+      - 'data.json'
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      # 1. Check out the repo code
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # 2. Tell GitHub Actions we want to deploy a static site
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Validate data.json is valid JSON
+        run: python -m json.tool data.json
 
-      # 3. Bundle the files we want to publish
-      - name: Upload site files
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'          # uploads everything in the repo root
-
-      # 4. Actually deploy to GitHub Pages
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Check no language has 0 native speakers
+        run: |
+          python3 - <<'EOF'
+          import json, sys
+          with open("data.json") as f:
+              data = json.load(f)
+          errors = [
+              lang["name"]
+              for lang in data.get("languages", [])
+              if lang.get("native_speakers_M", 0) == 0
+          ]
+          if errors:
+              print(f"❌ These languages have 0 native speakers: {errors}")
+              sys.exit(1)
+          print("✅ All languages have valid speaker counts.")
+          EOF
