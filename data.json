@@ -1,0 +1,15 @@
+{
+  "site": {
+    "title": "World Languages",
+    "description": "A quick reference of languages spoken around the world."
+  },
+  "languages": [
+    { "name": "Mandarin Chinese", "family": "Sino-Tibetan",  "native_speakers_M": 920, "official_in": ["China", "Taiwan", "Singapore"] },
+    { "name": "Spanish",          "family": "Indo-European", "native_speakers_M": 475, "official_in": ["Spain", "Mexico", "Argentina", "20 others"] },
+    { "name": "English",          "family": "Indo-European", "native_speakers_M": 373, "official_in": ["USA", "UK", "Australia", "67 others"] },
+    { "name": "Arabic",           "family": "Afro-Asiatic",  "native_speakers_M": 362, "official_in": ["Egypt", "Saudi Arabia", "22 others"] },
+    { "name": "French",           "family": "Indo-European", "native_speakers_M": 80,  "official_in": ["France", "Canada", "Belgium", "28 others"] },
+    { "name": "Japanese",         "family": "Japonic",       "native_speakers_M": 125, "official_in": ["Japan"] },
+    { "name": "Swahili",          "family": "Niger-Congo",   "native_speakers_M": 16,  "official_in": ["Kenya", "Tanzania", "Uganda"] }
+  ]
+}
