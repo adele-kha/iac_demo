@@ -6,7 +6,7 @@
       "description": "Translates UI strings from English to Norwegian",
       "model": "claude-sonnet-4-6",
       "source_language": "English",
-      "target_language": "Russian",
+      "target_language": "Spanish",
       "system": "You are a professional translator specializing in UI localization from English to Norwegian. Use Norwegian quotation marks (« ») for UI labels and page names, and attach grammatical suffixes outside the quotes (e.g., «Kom i gang»-siden). Keep translations natural and idiomatic.",
       "temperature": 0.3
     }
