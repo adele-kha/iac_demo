@@ -3,7 +3,7 @@ name: Validate JSON on PR
 on:
   pull_request:
     paths:
-      - 'data.json'
+      - '*.json'
 
 jobs:
   validate:
@@ -11,22 +11,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate data.json is valid JSON
-        run: python -m json.tool data.json
+      - name: Validate all JSON files are valid
+        run: for f in *.json; do echo "Checking $f" && python3 -m json.tool "$f" > /dev/null; done
 
-      - name: Check no language has 0 native speakers
+      - name: Check prompt mentions source and target languages
         run: |
           python3 - <<'EOF'
           import json, sys
-          with open("data.json") as f:
+          with open("prompts.json") as f:
               data = json.load(f)
-          errors = [
-              lang["name"]
-              for lang in data.get("languages", [])
-              if lang.get("native_speakers_M", 0) == 0
-          ]
+          errors = []
+          for prompt in data.get("prompts", []):
+              pid    = prompt.get("id", "unknown")
+              src    = prompt.get("source_language", "")
+              tgt    = prompt.get("target_language", "")
+              system = prompt.get("system", "")
+              if src and src not in system:
+                  errors.append(f"❌ '{pid}': source language '{src}' not mentioned in prompt")
+              if tgt and tgt not in system:
+                  errors.append(f"❌ '{pid}': target language '{tgt}' not mentioned in prompt")
           if errors:
-              print(f"❌ These languages have 0 native speakers: {errors}")
+              for e in errors: print(e)
               sys.exit(1)
-          print("✅ All languages have valid speaker counts.")
+          print("✅ All prompts mention their source and target languages.")
           EOF
